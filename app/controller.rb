@@ -13,9 +13,12 @@
     
     until @game.over?
       @view.round(@game.round_number)
-      user_input = @view.get_user_input
+
+      user_input = @view.validate_guess?
       computer_input = @computer_guess.computer_input
       #TODO 7 validate that the user has given us R/P/S (lower priority change)
+        #DONE
+      puts "#{user_input}"
       #TODO think about putting game logic into a game loop
 
       @game.take_turn(computer_input, user_input)

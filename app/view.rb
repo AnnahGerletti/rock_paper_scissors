@@ -1,5 +1,6 @@
 
 class View 
+  MATCH_LETTER = /\A^[R,S,P]$+\z/
   def initialize(setup_msg)
     @setup_msg = setup_msg
   end
@@ -22,7 +23,19 @@ class View
 
   def get_user_input
     puts "Enter Your Guess"
-    gets.chomp
+    gets.chomp.upcase
+  end
+
+  #question: why does RSp get upcased but not invalid inputs.
+
+  def validate_guess?
+    user_guess = get_user_input
+    if MATCH_LETTER.match?(user_guess)
+      user_guess
+    else 
+      puts "\t Not a valid guess"
+      puts "\t Try entering R, S or P"
+    end
   end
 
   def print_computers_guess
@@ -31,7 +44,7 @@ class View
   end
 
   def print_round_winner(winner)
-    puts "the winner is #{winner}"
+    puts "\t the winner is #{winner}"
   end
 end
 
