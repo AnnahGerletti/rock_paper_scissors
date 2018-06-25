@@ -1,5 +1,5 @@
 
-
+require 'byebug'
 class Game
   attr_reader :rounds, :computer_win, :user_win
   def initialize(rounds: 3)
@@ -50,4 +50,10 @@ class Game
   def valid_move?(move)
    /\A^[R,S,P]$+\z/.match?(move)
   end 
+
+  def show_round_winner(computer_guess, user_guess)
+    # byebug
+    round_winner = winner_of(computer_guess, user_guess)
+      "Winner of the round: #{round_winner}"
+  end
 end 

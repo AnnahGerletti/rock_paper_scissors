@@ -15,17 +15,19 @@ class Controller
 
   def game_loop
     puts @view.round(@game.round_number)
-    # ask user input
     computer_guess = @computer_guess.computer_input
     user_guess = get_playable_user_guess
 
     # TODO: does the line below belong here
 
     puts "\t computer guessed #{computer_guess}"
-    # take in user guess and computer guess
-    # compare them see who wins with winner_of
+  
     @game.take_turn(computer_guess, user_guess)
 
+    puts @game.show_round_winner(computer_guess, user_guess)
+
+
+    # puts @game.winner_of(computer_guess, user_guess)
     # TODO: method display result
   end
 
