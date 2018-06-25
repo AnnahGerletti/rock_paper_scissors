@@ -4,7 +4,7 @@ require_relative '../app/game.rb'
 
 RSpec.describe Game do
   let(:mock_computer_input) {instance_double('ComputerGuess')}
-  let(:game) { Game.new(mock_computer_input) }
+  let(:game) { Game.new }
 
   describe '#winner_of' do
     context 'Computer is the winner' do
@@ -50,17 +50,17 @@ RSpec.describe Game do
       it 'both computer and user play paper' do
         result = game.winner_of('P', 'P')
 
-        expect(result).to eq('no_one')
+        expect(result).to eq('tie')
       end
       it 'both computer and user play rock' do
         result = game.winner_of('R', 'R')
 
-        expect(result).to eq('no_one')
+        expect(result).to eq('tie')
       end
       it 'both computer and user play scissors' do
         result = game.winner_of('S', 'S')
 
-        expect(result).to eq('no_one')
+        expect(result).to eq('tie')
       end
     end
   end
@@ -82,7 +82,7 @@ RSpec.describe Game do
     end
     context 'When there is a draw' do
       it 'neither score is updated' do
-        game.updates_game_score('no_one')
+        game.updates_game_score('tie')
 
         expect(game.user_win).to eq 0
         expect(game.computer_win).to eq 0
@@ -128,6 +128,22 @@ RSpec.describe Game do
         game.updates_game_score('user')
 
         expect(game.over?).to be true
+      end
+    end
+  end
+
+  describe '#valid_move?' do
+    context 'when the user has made move' do
+      it 'is a valid input' do 
+        game.valid_move?('R')
+
+        expect(game.valid_move?('R')).to be true
+      end
+
+      it 'is a invalid input' do 
+        game.valid_move?('W')
+
+        expect(game.valid_move?('W')).to be false
       end
     end
   end
