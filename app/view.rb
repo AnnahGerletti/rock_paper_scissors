@@ -28,4 +28,10 @@ class View
   def invalid_entry
     puts 'invalid entry'
   end
+
+  def champion(who_won)
+      puts "\t THE WINNER IS #{who_won}"
+
+  end
+
 end

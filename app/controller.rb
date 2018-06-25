@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require "byebug"
 class Controller
   def initialize(view, game, computer_guess)
     @view = view
@@ -11,6 +11,7 @@ class Controller
     @view.welcome
 
     game_loop until @game.over?
+    @view.champion(@game.game_winner)
   end
 
   def game_loop
@@ -25,10 +26,6 @@ class Controller
     @game.take_turn(computer_guess, user_guess)
 
     puts @game.show_round_winner(computer_guess, user_guess)
-
-
-    # puts @game.winner_of(computer_guess, user_guess)
-    # TODO: method display result
   end
 
   def get_playable_user_guess

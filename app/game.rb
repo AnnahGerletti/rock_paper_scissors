@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 require 'byebug'
 class Game
@@ -9,7 +10,7 @@ class Game
   end
 
   def over?
-    @computer_win > @rounds/2 || @user_win > @rounds/2
+    @computer_win > @rounds / 2 || @user_win > @rounds / 2
   end
 
   def round_number
@@ -22,38 +23,45 @@ class Game
   end
 
   def winner_of(computer, user)
+    # TODO: 6 this method is not pretty. Magic strings bad. Too complex bad.
 
-    #TODO 6 this method is not pretty. Magic strings bad. Too complex bad.
-    
-    #TODO 5 and move it in to its own class, maybe
-    if computer == user 
-      return "tie"
-    end
+    # TODO: 5 and move it in to its own class, maybe
+    return 'tie' if computer == user
 
     if (computer == 'R' && user == 'S') ||
        (computer == 'S' && user == 'P') ||
        (computer == 'P' && user == 'R')
-      return "computer"
+      return 'computer'
     end
 
-    return "user"
+    'user'
   end
-  
+
   def updates_game_score(result_of_turn)
     if result_of_turn == 'computer'
-      @computer_win = @computer_win + 1
+      @computer_win += 1
     elsif result_of_turn == 'user'
-      @user_win = @user_win + 1 
+      @user_win += 1
+    end
+  end
+
+  def game_winner
+    if @computer_win >= 2
+      'computer'
+    elsif @user_win >= 2
+      'user'
+    else
+      'continue'
     end
   end
 
   def valid_move?(move)
-   /\A^[R,S,P]$+\z/.match?(move)
-  end 
+    /\A^[R,S,P]$+\z/.match?(move)
+  end
 
   def show_round_winner(computer_guess, user_guess)
     # byebug
     round_winner = winner_of(computer_guess, user_guess)
-      "Winner of the round: #{round_winner}"
+    "Winner of the round: #{round_winner}"
   end
-end 
+end
