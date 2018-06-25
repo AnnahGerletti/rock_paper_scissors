@@ -1,33 +1,42 @@
- class Controller 
+# frozen_string_literal: true
 
+class Controller
   def initialize(view, game, computer_guess)
     @view = view
     @game = game
     @computer_guess = computer_guess
   end
 
-  def start 
+  def start
     @view.welcome
 
-    # start_game = @view.start_game?
-    
-    until @game.over?
-      @view.round(@game.round_number)
-
-      user_input = @view.validate_guess?
-      computer_input = @computer_guess.computer_input
-      #TODO 7 validate that the user has given us R/P/S (lower priority change)
-        #DONE
-      puts "#{user_input}"
-      #TODO think about putting game logic into a game loop
-
-      @game.take_turn(computer_input, user_input)
-      round_winner = @game.winner_of(computer_input, user_input)
-      @view.print_round_winner(round_winner)
-    end
-    #TODO 4 view spit out who won
-    #DONE
-
+    game_loop until @game.over?
   end
 
+  def game_loop
+    puts @view.round(@game.round_number)
+    #ask user input
+    user_guess = get_playable_user_guess
+    computer_guess = @computer_guess.computer_input
+    #display each users inputd
+    puts "computer guessed #{computer_guess}"
+    #take in user guess and computer guess
+    #compare them see who wins with winner_of
+    @game.take_turn(computer_guess, user_guess)
+
+    #TODO: method display result
+  end
+
+  def get_playable_user_guess
+    loop do 
+      input = @view.get_user_input
+      if @game.valid_move?(input)
+        return input
+      else 
+        @view.invalid_entry
+      end
+    end
+    #ToDO: cover with specs 
+    #Todo: refactor
+  end
 end
