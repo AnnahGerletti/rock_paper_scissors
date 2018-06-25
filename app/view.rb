@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class View 
+class View
   def initialize(setup_msg)
     @setup_msg = setup_msg
   end
@@ -15,7 +15,7 @@ class View
   def round(round)
     puts "Round #{round}"
   end
-  
+
   def get_user_input
     puts 'Enter Your Guess'
     gets.chomp.upcase

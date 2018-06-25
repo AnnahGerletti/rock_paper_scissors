@@ -1,3 +1,5 @@
+
+
 class Game
   attr_reader :rounds, :computer_win, :user_win
   def initialize(rounds: 3)
@@ -16,25 +18,25 @@ class Game
 
   def take_turn(computer_input, user_input)
     result_of_turn = winner_of(computer_input, user_input)
-
     updates_game_score(result_of_turn)
   end
 
   def winner_of(computer, user)
+
     #TODO 6 this method is not pretty. Magic strings bad. Too complex bad.
     
     #TODO 5 and move it in to its own class, maybe
     if computer == user 
-      return 'no_one'
+      return "tie"
     end
 
     if (computer == 'R' && user == 'S') ||
        (computer == 'S' && user == 'P') ||
        (computer == 'P' && user == 'R')
-      return 'computer'
+      return "computer"
     end
 
-    return 'user'
+    return "user"
   end
   
   def updates_game_score(result_of_turn)
